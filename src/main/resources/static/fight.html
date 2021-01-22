@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Fight</title>
+		<link rel="stylesheet" href="CSS/general.css">
+		<link rel="stylesheet" href="CSS/fight.css">
+		<script src="cookies.js" ></script>
+	</head>
+		<style>
+	#player{
+		  position:absolute;
+		  bottom: 100px;
+		  left: 500px;
+		
+	}
+	#enemy{
+		  position:absolute;
+		  top: 100px;
+		  left: 950px;	
+	}
+	
+	#avatar{
+		width:150px;
+		position:absolute;
+		left: 800px;
+		top: 130px;
+		margin:0 10px 0 20px;
+	}
+	
+	#harry{
+		width:150px;
+		position:absolute;
+		left: 350px;
+		bottom: 200px;
+		margin:0 10px 0 20px;
+	}
+	#log{
+		background-color:rgb(128, 0, 255);
+		background-size:200px;
+		margin:0 10px 0 20px;	
+		width:755px;
+		height:100px;
+		position:absolute;
+		left: 370px;
+		top: 10px;
+	 	margin: 0;
+		padding: 0px 20px 10px 25px	;
+		color:rgb(64, 0, 64); 
+	}
+	img{
+	  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);	
+	}
+#end_b{
+	position:absolute;
+	bottom: 0px;
+	left: 0px;
+	}
+#next_b{
+	position:absolute;
+	bottom: 0px;
+	left:120px;
+	}	
+	</style>
+	<body>
+		
+		<figure id="player"><p> 
+			Player:
+			<br><br>
+			Nom : <span id="nameValue" class="bold"></span> <br>
+			HP : <span id="HPValue" class="bold" ></span><br>
+			Attaque : <span id="attackValue" class="bold"></span><br>
+			Dodge : <span id="dodgeValue" class="bold"></span><br><br><br>
+			
+			<button class="big-button" onclick="playerAttackFoe()" id="attack_b" >Attack</button>
+			<button class="big-button" onclick="dodge()" id="dodge_b" >Dodge</button>
+			<button class="big-button" onclick="healthPotion()" id="health_b" >Health Potion</button>
+			<button class="big-button" onclick="strengthPotion()" id="strength_b" >Strength Potion</button>
+
+			<button class="big-button" onclick="window.location.href='/showFoe.html';" id="next_b" style="display:none">Confront next foe</button>
+	    	<button class="big-button" onclick="window.location.href='/won.html';" id="end_b" style="display:none">End game</button>			
+		</p></figure>
+		
+		<figure id="harry">
+			<img id="playerPic" src ="images/Harry.png">
+		</figure>
+
+		
+		<figure id="enemy"><p> 
+			Enemy
+			<br><br>
+			Nom : <span id="foeNameValue" class="bold"></span> <br>
+			HP : <span id="foeHPValue" class="bold" ></span><br>
+			Attaque : <span id="foeAttackValue" class="bold"></span><br>
+			Dodge : <span id="foeDodgeValue" class="bold"></span><br>
+			
+		</p></figure>
+		
+		<figure id="avatar">
+			<img id="foePic"  src ="images/vilain.jpg">
+		</figure>
+		
+		<figure id="log">		
+		<p id="playerLog" class="bold"></p>
+		<p id="enemyLog" class="bold"></p>
+		</figure>		
+	</body>
+</html>
+	
+	
+	<script>
+	function updateViews(){
+		document.getElementById("nameValue").innerHTML = findValueCookie("name"); 
+		document.getElementById("attackValue").innerHTML = findValueCookie("attack"); 
+		document.getElementById("HPValue").innerHTML = findValueCookie("HP"); 
+		document.getElementById("dodgeValue").innerHTML = findValueCookie("dodge"); 
+		
+		document.getElementById("foeNameValue").innerHTML = findValueCookie("foeName");
+		document.getElementById("foeAttackValue").innerHTML = findValueCookie("foeAttack"); 
+		document.getElementById("foeHPValue").innerHTML = findValueCookie("foeHP"); 
+		document.getElementById("foeDodgeValue").innerHTML = findValueCookie("foeDodge"); 
+		
+		document.getElementById("playerPic").src = "images/"+findValueCookie("name")+".png"
+		document.getElementById("foePic").src = "images/"+findValueCookie("foeName")+".png" 
+		
+	}
+	
+	function foeAttackPlayer(){
+		var playerHP = Number(findValueCookie("HP")); 
+		var newPlayerHP = playerHP - Number(findValueCookie("foeAttack"));
+		
+		if (newPlayerHP > 0 ){
+			setCookie("HP", newPlayerHP);
+			document.getElementById("enemyLog").innerHTML = "Foe inflicted damage";
+		} else {
+			setCookie("HP", "0");
+			document.getElementById("enemyLog").innerHTML = "Player's dead";
+			onPlayerDeath();
+		}
+		updateViews();
+	}
+	
+	function playerAttackFoe() {
+		var foeHP = Number(findValueCookie("foeHP")); 
+		var newFoeHP = foeHP - Number(findValueCookie("attack"));
+		var dodgeValue = Number(findValueCookie("foeDodge"));
+		
+		if(Math.random() < dodgeValue){
+            foeDodge() 
+		} else {
+			foeAttackPlayer()
+			if (newFoeHP > 0 ){
+			setCookie("foeHP", newFoeHP);
+			document.getElementById("playerLog").innerHTML = "You inflicted damage";
+			
+	  		} else {
+			setCookie("foeHP", "0");
+			document.getElementById("playerLog").innerHTML = "Enemy's dead";
+			onEnemyDeath()
+	 		}
+		}		
+		
+		updateViews();
+	}
+	
+	
+	function healthPotion(){
+		var playerHP = Number(findValueCookie("HP")); 
+		var newPlayerHP = playerHP + 10;
+		
+		setCookie("HP", newPlayerHP);
+		document.getElementById('health_b').style.visibility = 'hidden';
+		updateViews();
+	}
+	
+	function strengthPotion(){
+		var playerAttack = Number(findValueCookie("attack")); 
+		var newPlayerAttack = playerAttack + 10;
+		
+		setCookie("attack", newPlayerAttack);
+		document.getElementById('strength_b').style.visibility = 'hidden';
+		updateViews();
+	}
+	
+	
+	function Redirect(link) {
+		window.location = link;
+	}            
+	
+	 
+	function getNext(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'nextFoe');
+		xhr.send()
+	}
+	          
+	function onEnemyDeath(){
+		
+		document.getElementById('attack_b').style.visibility = 'hidden';
+		document.getElementById('dodge_b').style.visibility = 'hidden';
+		document.getElementById('health_b').style.visibility = 'hidden';
+		document.getElementById('strength_b').style.visibility = 'hidden';
+		
+		document.getElementById('next_b').style.display='block';
+		document.getElementById('end_b').style.display='block';
+	} 
+	
+	
+	function onPlayerDeath(){
+		document.getElementById('attack_b').style.visibility = 'hidden';
+		document.getElementById('dodge_b').style.visibility = 'hidden';
+		document.getElementById('health_b').style.visibility = 'hidden';
+		document.getElementById('strength_b').style.visibility = 'hidden';		
+		document.getElementById('end_b').style.visibility='hidden';		
+		
+		setTimeout('Redirect("/lost.html")', 1000);
+	}
+	
+	
+	function dodge(){
+		var dodgeValue =  findValueCookie("dodge")
+		if(Math.random() < dodgeValue){
+	
+			document.getElementById("playerLog").innerHTML = "You have dodged the hit";
+			document.getElementById("enemyLog").innerHTML = "";
+			
+		} else {
+			document.getElementById("playerLog").innerHTML = "Dodge failed";
+			foeAttackPlayer()
+		}
+	} 
+	
+	function foeDodge(){
+		var foeDodgeValue =  findValueCookie("foeDodge")
+		if(Math.random() < foeDodgeValue){
+
+			document.getElementById("enemyLog").innerHTML = "Foe dodged the hit!";
+			document.getElementById("playerLog").innerHTML = "";
+			
+			
+		} else {
+			document.getElementById("enemyLog").innerHTML = "Dodge failed";
+			playerAttackFoe()
+		}
+	} 
+	
+	updateViews();
+	
+	</script>

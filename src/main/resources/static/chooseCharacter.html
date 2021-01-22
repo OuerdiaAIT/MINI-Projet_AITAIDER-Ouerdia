@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Choose your character</title>
+	</head>
+	<link rel="stylesheet" href="CSS/characters.css">
+	<style>
+		body{
+		background-image: url('/images/main.jpg');
+		background-attachment: fixed;
+		background-size: cover;
+		background-position:center;
+
+		}
+	</style>
+	<embed src="Sound/HarryPotter.mp3"
+       autostart="true"
+       hidden="true"
+       loop="false">
+	</embed>
+	<body>
+		<form action="/character" method="post">
+	<div id="content">
+	  <h1> choose your character</h1>
+	  <div class="container">
+		<div class="flipper">
+		  <div class="front">
+			<img src="images/Harry.png" alt="cherry blossoms">
+			<p class="caption">Harry Potter</p>
+		  </div>
+
+		  <div class="back">
+			<h1>Harry Potter</h1>
+			<p class="description">
+				Health Points = 100 </br>
+				Attack = 20 </br>
+				Dodge = 40% </br>
+			</p>
+			<button class="big-button" type="submit" name="name"value="Harry" >Choose</button>
+		  </div>
+		</div>
+	  </div>
+		
+	  <div class="container">
+		<div class="flipper">
+		  <div class="front">
+			<img src="images/Ron.png" alt="cherry blossoms">
+			<p class="caption">Ron Weasley</p>
+		  </div>
+		  <div class="back">
+			<h1>Ron Weasley</h1>
+			<p class="description">
+				Health Points = 80 </br>
+				Attack = 15 </br>
+				Dodge = 60%</br>
+			</p>
+			<button class="big-button" type="submit" name="name"value="Ron" >Choose</button>
+		  </div>
+		</div>
+	  </div>
+
+	  <div class="container">
+		<div class="flipper">
+		  <div class="front">
+			<img src="images/Hermione.png" alt="cherry blossoms">
+			<p class="caption">Hermione Granger</p>
+		  </div>
+		  <div class="back">
+			<h1>Hermione Granger</h1>
+			<p class="description">
+				Health Points = 120</br>
+				Attack = 20</br>
+				Dodge = 50%</br>
+			</p>
+			<button class="big-button" type="submit" name="name"value="Hermione" >Choose</button>
+		  </div>
+		</div>
+	  </div>	
+	</div>	
+		</form>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Choose your difficulty</title>
+	</head>
+	<link rel="stylesheet" href="CSS/characters.css">	
+	<style>
+		body{
+		background-image: url('/images/main.jpg');
+		background-attachment: fixed;
+		background-size: cover;
+		}
+		#btn{
+		padding: 1em 1.25em;	
+		}
+		h2{
+		color:white;	
+		}
+	</style>
+	<body>
+		<form action="/difficulty" method="post">
+			<h2> Choose the difficulty of the game :</h2>
+			
+			<div>
+				<button class="big-button" type="submit" name="diff"value="easy" >Easy</button> <br>
+				<button class="big-button" type="submit" name="diff"value="medium" id=btn>Medium</button> <br>
+				<button class="big-button" type="submit" name="diff"value="hard">Hard</button> <br>
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Opponent</title>
+		<link rel="stylesheet" href="CSS/foe.css">
+		<script src="cookies.js"></script>
+	</head>
+	<body>
+		<h2>Next Opponent :</h2>
+ 		<a href="/fight.html">
+			<figure id="vilain">
+				<figcaption>
+					<h4><span id="nameValue" class="bold"></span></h4>
+					<br><br><br><br><br><br><br><br><br>
+					<p style="display:none" id="foe_stats"> 
+						HP : <span id="HPValue" class="bold" ></span><br>
+						Attaque : <span id="attackValue" class="bold"></span><br>
+						Quote : <span id="quoteValue" class="bold"></span><br>
+					</p>			  
+				</figcaption>
+			</figure>
+		</a>
+		<script>
+
+
+		
+			function updateFoeCard(){	
+				document.getElementById('foe_stats').style.display='block';
+				
+				document.getElementById("nameValue").innerHTML = findValueCookie("foeName");
+				document.getElementById("attackValue").innerHTML = findValueCookie("foeAttack"); 
+				document.getElementById("HPValue").innerHTML = findValueCookie("foeHP"); 	
+				document.getElementById("quoteValue").innerHTML = getRandomQuote();
+				document.getElementById("vilain").style.backgroundImage =  "url('images/"+findValueCookie("foeName")+".png')";
+			}
+			 
+	
+			function Redirect(link) {
+				window.location = link;
+			}  
+				
+			function getRandomQuote(){
+				var items = ["Wisdom is the offspring of Suffering and Time.", 
+				"A hunter is a hunter, even in a dream.", 
+				"I may be but small, but I live as a colossus.",
+				"I don’t need a weapon; my friends are my power!",
+				"It’s time to kick ass and chew bubble gum…and I’m all out of gum.",
+				"Even in brightest times, we cannot relinquish the things that make us monsters",
+				"I survive because the fire inside burns brighter than the fire around me.",
+				"On est en guerre !"
+				];
+				
+				return items[Math.floor(Math.random() * items.length)];
+			}
+			
+			
+			function verifyWonState(){
+				var response = findValueCookie("won");
+				if(response == "true"){
+					//updateWonStats();
+					Redirect("/won.html")
+				}
+				else{
+					updateFoeCard();
+				}
+			}
+			
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'nextFoe');
+			xhr.send();
+			
+			
+			setTimeout('verifyWonState()', 100);
+	
+		</script>
+		
+	</body>
+</html>

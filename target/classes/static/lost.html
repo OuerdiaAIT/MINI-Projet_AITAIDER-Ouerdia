@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>You lost !</title>
+		<script src="cookies.js" ></script>
+		<link rel="stylesheet" href="CSS/end.css">	
+	</head>
+	<style>
+		body {
+	 		 background: black;
+	  		background-image: url('images/slyther.jpg');
+	  		background-position: center;
+	  		font-family: 'Lily Script One';
+		}
+		.back {
+		  background: rgb(0, 128, 64);
+		  color: white;
+		  transform: rotateY( 180deg );
+		}
+		.content{
+		  box-shadow: 0 0 15px rgb(0, 128, 0);
+		}
+	</style>
+	<body>
+		<div class="card">
+		  <div class="content">
+		    <div class="front">
+		      <h4>Defeated! </h4>
+			  <p>The Shadows betray You,<br>
+				because they serve me!</p><br>
+			  <div><img src="images/Ginny.jpg" width= "150px"></div>
+			  
+		    </div>
+		    <div class="back">
+			  <h4>Results :</h4>
+			  <div><img src="images/vdm.jpg"></div>
+			  <p id="lost_stats"> 
+				<span id="lostMessage" class="bold"></span>
+				Enemies defeated : <span id="foesDef" class="bold"></span> <br>
+				Killed by : <span id="foe" class="bold"></span> <br>
+				Difficulty : <span id="diff" class="bold"></span> <br>
+				<a href="/index.html" class ="button">Play again</a>
+			 </p>
+		     </div>
+		 	</div>
+		</div>
+
+
+		
+		<script>
+		
+		function updateloseStats(){
+							
+			document.getElementById('lost_stats').style.display='block';
+			
+			var defeatedFoes = findValueCookie("foeNumber");
+			var currentHealth = findValueCookie("foeName");
+			var currentDifficulty = findValueCookie("difficulty");
+			
+			document.getElementById("foesDef").innerHTML = Number(defeatedFoes); 
+			document.getElementById("foe").innerHTML = currentHealth; 
+			document.getElementById("diff").innerHTML = currentDifficulty;  
+		}
+		
+		updateloseStats();
+		
+		</script>
+	</body>
+</html>

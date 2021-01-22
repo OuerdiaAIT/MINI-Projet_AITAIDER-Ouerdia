@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>You Won !</title>
+		<script src="cookies.js" ></script>
+		<link rel="stylesheet" href="CSS/end.css">	
+	</head>
+	<style>
+		body {
+	 		background: black;
+	  		background-image: url('images/Griff.jpg');
+	  		background-position: center;
+	  		font-family: 'Lily Script One';
+		}
+		.back {
+		  background: #960018;
+		  color: white;
+		  transform: rotateY( 180deg );
+		}
+		.content{
+		  box-shadow: 0 0 15px rgb(128, 0, 0);
+		}
+	</style>
+	<body>	
+		<div class="card">
+ 		 <div class="content">
+    		<div class="front">
+		      <h4>Congrats! </h4>
+			  <p>The wand chooses the Wizard</p><br>
+			  <div><img src="images/dumbe.jpg" width= "150px"></div>
+		    </div>
+    		<div class="back">
+	  		<h4>Results :</h4>
+	  			<div id="svg" ><img src="images/wiin.svg"></div>
+	  			<p id="won_stats"> 
+					<span id="wonMessage" class="bold"></span>
+						Enemies defeated : <span id="foesDef" class="bold"></span> <br>
+						Current health : <span id="health" class="bold"></span> <br>
+						Difficulty : <span id="diff" class="bold"></span> <br>
+					
+					<a href="/index.html" class ="button">Play again</a>
+			    </p> 
+	   	 </div>
+  	  </div>
+ 	</div>
+	  <script>	
+			
+			function updateWonStats(){
+				document.getElementById('won_stats').style.display='block';
+				
+				var defeatedFoes = findValueCookie("foeNumber");
+				var currentHealth = findValueCookie("HP");
+				var currentDifficulty = findValueCookie("difficulty");			
+	
+				document.getElementById("foesDef").innerHTML = Number(defeatedFoes) + 1; 
+				document.getElementById("health").innerHTML = currentHealth; 
+				document.getElementById("diff").innerHTML = currentDifficulty;  
+			}
+						
+			updateWonStats();				
+	  </script>
+	</body>
+</html>
